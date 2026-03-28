@@ -7,6 +7,13 @@
   color-scheme: only light;
 }
 
+/* Bloqueia Force Dark Mode do Samsung Internet e similares */
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: none !important;
+  }
+}
+
 /* ── RESET & BASE ─────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
