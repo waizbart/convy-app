@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Impede que o dark mode do sistema altere cores nativas da página */
+:root {
+  color-scheme: only light;
+}
+
 /* ── RESET & BASE ─────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
