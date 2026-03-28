@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── RESET & BASE ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg, #080610);
+  color: var(--color-text, #fdf6ff);
+  font-family: var(--font-sans, 'Montserrat'), sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  /* Radial gradient background */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(255, 63, 164, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(130, 80, 220, 0.12) 0%, transparent 60%);
+}
+
+/* ── CSS VARIABLES (fallbacks — valores reais injetados via applyTheme) ─── */
+:root {
+  --color-primary: #ff3fa4;
+  --color-primary-light: #ff85c8;
+  --color-primary-dark: #c0006a;
+  --color-silver: #e8d0f0;
+  --color-silver-cold: #c8c0d8;
+  --color-bg: #080610;
+  --color-surface: #0f0920;
+  --color-surface-alt: #1e0838;
+  --color-text: #fdf6ff;
+  --color-text-muted: rgba(253, 246, 255, 0.55);
+  --font-display: 'Cinzel';
+  --font-serif: 'Cormorant Garamond';
+  --font-sans: 'Montserrat';
+  --glow-primary: rgba(255, 63, 164, 0.6);
+  --glow-soft: rgba(255, 63, 164, 0.2);
+  --glow-ultra: rgba(255, 63, 164, 0.9);
+}
+
+/* ── TYPOGRAPHY HELPERS ──────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), sans-serif;
+}
+
+/* ── GLOW TEXT ───────────────────────────────────────────────── */
+.text-glow {
+  text-shadow:
+    0 0 20px var(--glow-primary),
+    0 0 40px var(--glow-soft);
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-dark);
+  border-radius: 2px;
+}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION SPACING ─────────────────────────────────────────── */
+section {
+  padding: 5rem 1.25rem;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  section {
+    padding: 6rem 2rem;
+  }
+}
+
+/* ── SELECTION ───────────────────────────────────────────────── */
+::selection {
+  background: rgba(255, 63, 164, 0.3);
+  color: #fff;
+}
