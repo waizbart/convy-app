@@ -7,26 +7,32 @@ import { inviteConfig } from '../../config/invite.config';
 
 interface EnvelopeSceneProps {
   onOpen: () => void;
+  onInteract: () => void;
   visible: boolean;
+  guestName: string;
 }
 
-export function EnvelopeScene({ onOpen, visible }: EnvelopeSceneProps) {
+export function EnvelopeScene({ onOpen, onInteract, visible, guestName }: EnvelopeSceneProps) {
   const [phase, setPhase] = useState<'idle' | 'opening' | 'confetti'>('idle');
   const [sealVisible, setSealVisible] = useState(true);
 
   function handleOpen() {
     if (phase !== 'idle') return;
 
-    // 0ms: seal fades
+    // Start music immediately on interaction
+    onInteract();
+
     setSealVisible(false);
     setPhase('opening');
 
-    // 1200ms: confetti
-    setTimeout(() => setPhase('confetti'), 1200);
+    // 900ms: confetti (card is gone, animate faster)
+    setTimeout(() => setPhase('confetti'), 900);
 
-    // 2200ms: scene fades out, main page appears
-    setTimeout(() => onOpen(), 2200);
+    // 1800ms: scene fades out, main page appears
+    setTimeout(() => onOpen(), 1800);
   }
+
+  const displayName = guestName.trim() || `${inviteConfig.person.firstName} ${inviteConfig.person.lastName}`;
 
   return (
     <AnimatePresence>
@@ -77,10 +83,7 @@ export function EnvelopeScene({ onOpen, visible }: EnvelopeSceneProps) {
                 textShadow: '0 0 30px var(--glow-soft)',
               }}
             >
-              {inviteConfig.person.firstName}{' '}
-              <span style={{ fontWeight: 700, color: 'var(--color-silver)' }}>
-                {inviteConfig.person.lastName}
-              </span>
+              {displayName}
             </h1>
           </motion.div>
 
@@ -108,9 +111,10 @@ export function EnvelopeScene({ onOpen, visible }: EnvelopeSceneProps) {
               )}
             </AnimatePresence>
 
-            {/* Confetti */}
-            {phase === 'confetti' && <Confetti />}
           </motion.div>
+
+          {/* Confetti — rendered at scene level so it's full-screen */}
+          {phase === 'confetti' && <Confetti />}
         </motion.div>
       )}
     </AnimatePresence>

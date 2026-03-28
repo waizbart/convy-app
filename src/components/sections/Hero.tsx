@@ -152,18 +152,6 @@ export function Hero() {
             animation: 'scrollHint 2s ease-in-out infinite',
           }}
         />
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.6rem',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--color-text-muted)',
-            animation: 'pulseGlow 2s ease-in-out infinite',
-          }}
-        >
-          Rolar
-        </p>
       </motion.div>
     </motion.section>
   );

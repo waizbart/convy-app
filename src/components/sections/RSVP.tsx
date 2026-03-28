@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Send } from 'lucide-react';
 import { inviteConfig } from '../../config/invite.config';
 import { SectionWrapper, itemVariants } from '../layout/SectionWrapper';
 import { Button } from '../ui/Button';
@@ -33,7 +34,8 @@ export function RSVP() {
         </p>
 
         <Button href={inviteConfig.links.googleForms} variant="primary">
-          ✉️ Confirmar presença
+          <Send size={15} strokeWidth={1.5} />
+          Confirmar presença
         </Button>
 
         <div style={{ marginTop: '3rem' }}>

@@ -20,26 +20,38 @@ export default function App() {
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
   const music = useMusic(inviteConfig.audio.src, inviteConfig.audio.volume);
 
-  // Inject CSS theme tokens on mount
+  const guestName = new URLSearchParams(window.location.search).get('nome') ?? '';
+
+  // Inject CSS theme tokens + reset scroll on mount
   useEffect(() => {
     applyTheme(inviteConfig.theme);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  // Lock scroll while envelope is showing
+  useEffect(() => {
+    document.body.style.overflow = envelopeOpened ? '' : 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, [envelopeOpened]);
+
   function handleOpen() {
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setEnvelopeOpened(true);
-    if (inviteConfig.audio.autoplayOnOpen) {
-      music.start();
-    }
   }
 
   return (
     <>
       {/* Opening sequence */}
-      <EnvelopeScene onOpen={handleOpen} visible={!envelopeOpened} />
+      <EnvelopeScene
+        onOpen={handleOpen}
+        onInteract={music.start}
+        visible={!envelopeOpened}
+        guestName={guestName}
+      />
 
       {/* Persistent elements */}
       <ParticleField />
-      <MusicButton playing={music.playing} onToggle={music.toggle} />
+      {envelopeOpened && <MusicButton playing={music.playing} onToggle={music.toggle} />}
 
       {/* Main content */}
       <main

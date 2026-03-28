@@ -1,3 +1,5 @@
+import { Music2, VolumeX } from 'lucide-react';
+
 interface MusicButtonProps {
   playing: boolean;
   onToggle: () => void;
@@ -21,7 +23,6 @@ export function MusicButton({ playing, onToggle }: MusicButtonProps) {
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         color: 'var(--color-primary)',
-        fontSize: '1.3rem',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
@@ -38,7 +39,10 @@ export function MusicButton({ playing, onToggle }: MusicButtonProps) {
         (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
       }}
     >
-      {playing ? '🎵' : '🔇'}
+      {playing
+        ? <Music2 size={20} strokeWidth={1.5} />
+        : <VolumeX size={20} strokeWidth={1.5} />
+      }
     </button>
   );
 }

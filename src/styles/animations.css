@@ -31,7 +31,13 @@
 /* Confetti fall */
 @keyframes confettiFall {
   0% {
-    transform: translateY(0) rotateZ(var(--rz, 0deg)) rotateX(var(--rx, 0deg));
+    transform: translateY(0) translateX(0) rotateZ(var(--rz, 0deg)) rotateX(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  80% {
     opacity: 1;
   }
   100% {

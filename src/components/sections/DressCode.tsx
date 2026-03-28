@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 import { inviteConfig } from '../../config/invite.config';
 import { SectionWrapper, itemVariants } from '../layout/SectionWrapper';
 import { TabSwitcher } from '../ui/TabSwitcher';
@@ -31,11 +32,13 @@ function WomenPanel() {
           border: '1px solid rgba(255,63,164,0.25)',
           borderRadius: 8,
           padding: '0.6rem 1rem',
-          display: 'inline-block',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
           maxWidth: 320,
         }}
       >
-        🌸 {dressCode.womenWarning}
+        {dressCode.womenWarning}
       </p>
     </div>
   );
@@ -64,9 +67,13 @@ function MenPanel() {
           fontFamily: 'var(--font-sans)',
           fontSize: '0.8rem',
           color: 'var(--color-text-muted)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
         }}
       >
-        ✨ {dressCode.menTip}
+        <Sparkles size={14} strokeWidth={1.5} style={{ flexShrink: 0, color: 'var(--color-primary)' }} />
+        {dressCode.menTip}
       </p>
     </div>
   );
@@ -74,8 +81,8 @@ function MenPanel() {
 
 export function DressCode() {
   const tabs = [
-    { key: 'mulheres', label: 'Madrinhas', content: <WomenPanel /> },
-    { key: 'homens',   label: 'Padrinhos', content: <MenPanel /> },
+    { key: 'mulheres', label: 'Mulheres', content: <WomenPanel /> },
+    { key: 'homens',   label: 'Homens', content: <MenPanel /> },
   ];
 
   return (

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { CalendarDays, Building2, MapPin } from 'lucide-react';
 import { inviteConfig } from '../../config/invite.config';
 import { SectionWrapper, itemVariants } from '../layout/SectionWrapper';
 import { Card } from '../ui/Card';
@@ -20,13 +21,16 @@ export function EventDetails() {
           <div style={{ textAlign: 'center' }}>
             <div
               style={{
-                fontSize: '2.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 marginBottom: '0.75rem',
+                color: 'var(--color-primary)',
                 filter: 'drop-shadow(0 0 8px var(--glow-primary))',
               }}
               aria-hidden="true"
             >
-              🕯️
+              <CalendarDays size={36} strokeWidth={1.25} />
             </div>
             <p
               style={{
@@ -80,13 +84,16 @@ export function EventDetails() {
           <div style={{ textAlign: 'center' }}>
             <div
               style={{
-                fontSize: '2.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 marginBottom: '0.75rem',
+                color: 'var(--color-primary)',
                 filter: 'drop-shadow(0 0 8px var(--glow-primary))',
               }}
               aria-hidden="true"
             >
-              🏛️
+              <Building2 size={36} strokeWidth={1.25} />
             </div>
             <p
               style={{
@@ -113,7 +120,8 @@ export function EventDetails() {
               {inviteConfig.event.venue}
             </p>
             <Button href={inviteConfig.links.googleMaps} variant="outline">
-              📍 Ver localização
+              <MapPin size={14} strokeWidth={1.5} style={{ marginRight: '0.35rem', flexShrink: 0 }} />
+              Ver localização
             </Button>
           </div>
         </Card>

@@ -1,184 +1,180 @@
-import { useState, useCallback } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, useMotionValue, animate, type PanInfo } from 'framer-motion';
 
 interface CarouselProps {
   images: readonly string[];
   alt: string;
 }
 
-const SLIDE_VARIANTS = {
-  enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit:  (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
-};
-
-const TRANSITION = { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as const };
+const ITEM_W = 150;
+const ITEM_H = 230;
+const GAP = 10;
+const STEP = ITEM_W + GAP;
+const AUTOPLAY_MS = 2000;
 
 export function Carousel({ images, alt }: CarouselProps) {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const N = images.length;
 
-  const go = useCallback((next: number) => {
-    const clamped = (next + images.length) % images.length;
-    setDirection(next > index ? 1 : -1);
-    setIndex(clamped);
-  }, [index, images.length]);
+  // Clone last item at start and first item at end for seamless looping
+  // Layout: [clone-last, img0, img1, ..., imgN-1, clone-first]
+  // Indices:      0         1     2          N       N+1
+  const extended = [images[N - 1], ...images, images[0]] as string[];
 
-  const prev = () => go(index - 1);
-  const next = () => go(index + 1);
+  // Start at index 1 (first real image)
+  const [current, setCurrent] = useState(1);
+  const xMV = useMotionValue(-1 * STEP);
+  const isDragging = useRef(false);
 
-  const single = images.length === 1;
+  const goTo = useCallback(
+    (idx: number) => {
+      setCurrent(idx);
+      animate(xMV, -idx * STEP, {
+        type: 'tween',
+        duration: 0.42,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        onComplete: () => {
+          // Silently jump from clone to real equivalent
+          if (idx === 0) {
+            xMV.set(-N * STEP);
+            setCurrent(N);
+          } else if (idx === N + 1) {
+            xMV.set(-1 * STEP);
+            setCurrent(1);
+          }
+        },
+      });
+    },
+    [N, xMV],
+  );
+
+  // Auto-play
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!isDragging.current) {
+        goTo(current + 1);
+      }
+    }, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [current, goTo]);
+
+  function handleDragEnd(_: unknown, info: PanInfo) {
+    isDragging.current = false;
+    const { offset, velocity } = info;
+    if (offset.x < -40 || velocity.x < -200) {
+      goTo(current + 1);
+    } else if (offset.x > 40 || velocity.x > 200) {
+      goTo(current - 1);
+    } else {
+      animate(xMV, -current * STEP, { type: 'tween', duration: 0.3 });
+    }
+  }
+
+  // Dot indicator maps to real index (0-based)
+  const realIndex = ((current - 1) + N) % N;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-      {/* Image stage */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+      {/* Strip — active image is always centered via paddingLeft */}
       <div
         style={{
-          position: 'relative',
-          width: '100%',
-          maxWidth: 300,
-          height: 360,
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
           overflow: 'hidden',
+          width: '100%',
+          // Shift strip so item at x=0 is centered; each subsequent item
+          // is centered by subtracting STEP per index in the motion value
+          paddingLeft: `calc(50% - ${ITEM_W / 2}px)`,
         }}
       >
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.img
-            key={images[index]}
-            src={images[index]}
-            alt={`${alt} ${index + 1}`}
-            loading="lazy"
-            custom={direction}
-            variants={SLIDE_VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={TRANSITION}
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              maxHeight: '100%',
-              maxWidth: '100%',
-              objectFit: 'contain',
-              objectPosition: 'bottom center',
-              filter: 'drop-shadow(0 0 18px rgba(255,63,164,0.25)) drop-shadow(0 16px 32px rgba(0,0,0,0.5))',
-              userSelect: 'none',
-              pointerEvents: 'none',
-            }}
-          />
-        </AnimatePresence>
-
-        {/* Prev / Next buttons */}
-        {!single && (
-          <>
-            <NavButton direction="prev" onClick={prev} />
-            <NavButton direction="next" onClick={next} />
-          </>
-        )}
+        <motion.div
+          style={{
+            display: 'flex',
+            gap: GAP,
+            x: xMV,
+            cursor: 'grab',
+            userSelect: 'none',
+          }}
+          drag="x"
+          dragConstraints={{ left: -(N + 1) * STEP, right: 0 }}
+          dragElastic={0.06}
+          whileDrag={{ cursor: 'grabbing' }}
+          onDragStart={() => { isDragging.current = true; }}
+          onDragEnd={handleDragEnd}
+        >
+          {extended.map((src, i) => {
+            const isActive = i === current;
+            return (
+              <motion.div
+                key={`${src}-${i}`}
+                animate={{
+                  opacity: isActive ? 1 : 0.45,
+                  scale: isActive ? 1 : 0.92,
+                }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  width: ITEM_W,
+                  height: ITEM_H,
+                  flexShrink: 0,
+                  borderRadius: 10,
+                  overflow: 'hidden',
+                  border: isActive
+                    ? '1px solid rgba(255,63,164,0.55)'
+                    : '1px solid rgba(255,255,255,0.07)',
+                  boxShadow: isActive
+                    ? '0 0 20px rgba(255,63,164,0.28), 0 8px 24px rgba(0,0,0,0.5)'
+                    : '0 4px 12px rgba(0,0,0,0.35)',
+                  background: '#0f0920',
+                  transition: 'border-color 0.3s, box-shadow 0.3s',
+                }}
+              >
+                <img
+                  src={src}
+                  alt={`${alt} ${(i % N) + 1}`}
+                  loading="lazy"
+                  draggable={false}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    objectPosition: 'top center',
+                    pointerEvents: 'none',
+                    userSelect: 'none',
+                    display: 'block',
+                  }}
+                />
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
 
-      {/* Dot indicators */}
-      {!single && (
-        <div
-          style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}
-          role="tablist"
-          aria-label="Selecionar imagem"
-        >
-          {images.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`Imagem ${i + 1}`}
-              onClick={() => go(i)}
-              style={{
-                width: i === index ? 20 : 7,
-                height: 7,
-                borderRadius: 4,
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0,
-                background: i === index
-                  ? 'linear-gradient(90deg, var(--color-primary), var(--color-primary-light))'
-                  : 'rgba(255,255,255,0.2)',
-                boxShadow: i === index ? '0 0 8px var(--glow-primary)' : 'none',
-                transition: 'width 0.3s ease, background 0.3s ease, box-shadow 0.3s ease',
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Counter */}
-      {!single && (
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.6rem',
-            letterSpacing: '0.16em',
-            color: 'var(--color-text-muted)',
-          }}
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {index + 1} / {images.length}
-        </p>
-      )}
+      {/* Dots */}
+      <div
+        style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}
+        role="tablist"
+        aria-label="Selecionar imagem"
+      >
+        {images.map((_, i) => (
+          <button
+            key={i}
+            role="tab"
+            aria-selected={i === realIndex}
+            aria-label={`Imagem ${i + 1}`}
+            onClick={() => goTo(i + 1)}
+            style={{
+              width: i === realIndex ? 20 : 7,
+              height: 7,
+              borderRadius: 4,
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              background: i === realIndex
+                ? 'linear-gradient(90deg, var(--color-primary), var(--color-primary-light))'
+                : 'rgba(255,255,255,0.2)',
+              boxShadow: i === realIndex ? '0 0 8px var(--glow-primary)' : 'none',
+              transition: 'width 0.3s ease, background 0.3s ease, box-shadow 0.3s ease',
+            }}
+          />
+        ))}
+      </div>
     </div>
-  );
-}
-
-// ── Nav arrow button ────────────────────────────────────────────
-interface NavButtonProps {
-  direction: 'prev' | 'next';
-  onClick: () => void;
-}
-
-function NavButton({ direction, onClick }: NavButtonProps) {
-  const isPrev = direction === 'prev';
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={isPrev ? 'Imagem anterior' : 'Próxima imagem'}
-      style={{
-        position: 'absolute',
-        top: '50%',
-        [isPrev ? 'left' : 'right']: 0,
-        transform: 'translateY(-50%)',
-        zIndex: 2,
-        width: 36,
-        height: 36,
-        borderRadius: '50%',
-        border: '1px solid rgba(255,63,164,0.35)',
-        background: 'rgba(8,6,16,0.75)',
-        backdropFilter: 'blur(6px)',
-        WebkitBackdropFilter: 'blur(6px)',
-        color: 'var(--color-primary)',
-        fontSize: '1rem',
-        lineHeight: 1,
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget;
-        el.style.background = 'rgba(255,63,164,0.2)';
-        el.style.boxShadow = '0 0 12px var(--glow-primary)';
-        el.style.transform = `translateY(-50%) scale(1.1)`;
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget;
-        el.style.background = 'rgba(8,6,16,0.75)';
-        el.style.boxShadow = 'none';
-        el.style.transform = 'translateY(-50%) scale(1)';
-      }}
-    >
-      {isPrev ? '‹' : '›'}
-    </button>
   );
 }

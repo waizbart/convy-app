@@ -26,7 +26,7 @@ export const inviteConfig = {
 
   // ── FRASES
   copy: {
-    heroInvitePrefix: 'Você está cordialmente convidada para',
+    heroInvitePrefix: 'Você está cordialmente convidado para',
     heroQuote: 'Com muito carinho, te convido para celebrar um dia cheio de sonhos, sorrisos e muita emoção!',
     footerClosing: 'Com carinho',
     footerTagline: '15 anos · 9 de maio de 2026',
@@ -68,28 +68,32 @@ export const inviteConfig = {
       '/images/dress-women-1.png',
       '/images/dress-women-2.png',
       '/images/dress-women-3.png',
+      '/images/dress-women-4.png',
+      '/images/dress-women-5.png',
     ],
     menImages: [
       '/images/dress-men-1.png',
       '/images/dress-men-2.png',
       '/images/dress-men-3.png',
+      '/images/dress-men-4.png',
+      '/images/dress-men-5.png',
     ],
   },
 
   // ── MANUAL DO CONVIDADO
   guestManual: [
     {
-      icon: '⏰',
+      icon: 'clock',
       title: 'Pontualidade',
       text: 'O salão abre a partir das 18h30. Seja pontual e aproveite cada momento!',
     },
     {
-      icon: '✅',
+      icon: 'check',
       title: 'Confirmação',
       text: 'Confirme sua presença até 20 de abril pelo formulário abaixo.',
     },
     {
-      icon: '📸',
+      icon: 'camera',
       title: 'Fotos',
       text: 'Tirem bastante foto! Cada clique vira uma lembrança pra vida toda.',
     },
@@ -98,7 +102,7 @@ export const inviteConfig = {
   // ── LISTA DE PRESENTES
   gifts: [
     {
-      category: '👗 Roupas',
+      category: 'Roupas',
       items: [
         'Camisetas / Blusas – P/M',
         'Shorts / Calças – 38',
@@ -106,7 +110,7 @@ export const inviteConfig = {
       ],
     },
     {
-      category: '👟 Calçados & Outros',
+      category: 'Calçados & Outros',
       items: [
         'Calçados – nº 37',
         'Bolsa',
@@ -114,14 +118,14 @@ export const inviteConfig = {
       ],
     },
     {
-      category: '✨ Acessórios (prata)',
+      category: 'Acessórios (prata)',
       items: [
         'Brinco, pulseira, colar',
         'Anel – nº 16',
       ],
     },
     {
-      category: '💄 Beleza & Cuidados',
+      category: 'Beleza & Cuidados',
       items: [
         'Perfume / Body Splash (doce ou floral)',
         'Hidratantes',
@@ -168,7 +172,7 @@ export const inviteConfig = {
 
   // ── ÁUDIO
   audio: {
-    src: '/audio/background.ogg',
+    src: '/audio/background.mp3',
     volume: 0.32,
     loop: true,
     autoplayOnOpen: true,

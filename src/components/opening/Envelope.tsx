@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { CardInside } from './CardInside';
 
 interface EnvelopeProps {
   isOpening: boolean;
@@ -146,8 +145,6 @@ export function Envelope({ isOpening }: EnvelopeProps) {
         </motion.div>
       </div>
 
-      {/* ── Card inside ── */}
-      {isOpening && <CardInside />}
     </div>
   );
 }

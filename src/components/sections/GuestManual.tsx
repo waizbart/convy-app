@@ -1,8 +1,16 @@
 import { motion } from 'framer-motion';
+import { Clock, CheckCircle2, Camera } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { inviteConfig } from '../../config/invite.config';
 import { SectionWrapper, itemVariants } from '../layout/SectionWrapper';
 import { Card } from '../ui/Card';
 import { DecoLine } from '../layout/DecoLine';
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  clock: Clock,
+  check: CheckCircle2,
+  camera: Camera,
+};
 
 export function GuestManual() {
   return (
@@ -16,44 +24,50 @@ export function GuestManual() {
           marginBottom: '2.5rem',
         }}
       >
-        {inviteConfig.guestManual.map((item) => (
-          <Card key={item.title}>
-            <div style={{ textAlign: 'center' }}>
-              <div
-                style={{
-                  fontSize: '2rem',
-                  marginBottom: '0.75rem',
-                  filter: 'drop-shadow(0 0 6px var(--glow-soft))',
-                }}
-                aria-hidden="true"
-              >
-                {item.icon}
+        {inviteConfig.guestManual.map((item) => {
+          const Icon = ICON_MAP[item.icon] ?? Clock;
+          return (
+            <Card key={item.title}>
+              <div style={{ textAlign: 'center' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '0.75rem',
+                    color: 'var(--color-primary)',
+                    filter: 'drop-shadow(0 0 6px var(--glow-soft))',
+                  }}
+                  aria-hidden="true"
+                >
+                  <Icon size={32} strokeWidth={1.25} />
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '0.95rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                    color: 'var(--color-text)',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.82rem',
+                    color: 'var(--color-text-muted)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {item.text}
+                </p>
               </div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '0.95rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  color: 'var(--color-text)',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                {item.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.82rem',
-                  color: 'var(--color-text-muted)',
-                  lineHeight: 1.6,
-                }}
-              >
-                {item.text}
-              </p>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </motion.div>
 
       <motion.div variants={itemVariants} style={{ textAlign: 'center' }}>
