@@ -62,19 +62,6 @@ function MenPanel() {
       >
         {dressCode.menNote}
       </p>
-      <p
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.8rem',
-          color: 'var(--color-text-muted)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.45rem',
-        }}
-      >
-        <Sparkles size={14} strokeWidth={1.5} style={{ flexShrink: 0, color: 'var(--color-primary)' }} />
-        {dressCode.menTip}
-      </p>
     </div>
   );
 }

@@ -73,10 +73,9 @@ export const inviteConfig = {
   // ── DRESS CODE
   dressCode: {
     title: 'Esporte Fino',
-    womenNote: 'Vestido midi, longo ou conjunto elegante.',
+    womenNote: '',
     womenWarning: 'Por favor, evite o rosa — é a cor reservada para a aniversariante.',
-    menNote: 'Calça social, camisa ou blazer.',
-    menTip: 'Tênis é bem-vindo, desde que o visual seja elegante.',
+    menNote: '',
     forbiddenColor: 'rosa',
     // Imagens em /public/images/ — adicione/remova paths conforme necessário
     womenImages: [
