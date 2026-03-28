@@ -40,12 +40,22 @@ export default function App() {
     setEnvelopeOpened(true);
   }
 
+  function handleInteract() {
+    music.start();
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      el.requestFullscreen().catch(() => {});
+    } else if ((el as unknown as { webkitRequestFullscreen?: () => Promise<void> }).webkitRequestFullscreen) {
+      (el as unknown as { webkitRequestFullscreen: () => Promise<void> }).webkitRequestFullscreen().catch(() => {});
+    }
+  }
+
   return (
     <>
       {/* Opening sequence */}
       <EnvelopeScene
         onOpen={handleOpen}
-        onInteract={music.start}
+        onInteract={handleInteract}
         visible={!envelopeOpened}
         guestName={guestName}
       />
