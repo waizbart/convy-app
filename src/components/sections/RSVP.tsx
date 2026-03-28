@@ -7,7 +7,7 @@ import { DecoLine } from '../layout/DecoLine';
 
 export function RSVP() {
   return (
-    <SectionWrapper label="Confirmação" title="Confirme sua Presença" id="rsvp">
+    <SectionWrapper label="Sua presença é essencial" title="Confirme sua Presença" id="rsvp">
       <motion.div variants={itemVariants} style={{ textAlign: 'center' }}>
         <p
           style={{

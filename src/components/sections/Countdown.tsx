@@ -8,7 +8,7 @@ export function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown(inviteConfig.event.date);
 
   return (
-    <SectionWrapper label="Faltam apenas" title="Contagem Regressiva" id="countdown">
+    <SectionWrapper label="O tempo passa…" title="Contagem Regressiva" id="countdown">
       <motion.div
         variants={itemVariants}
         style={{
@@ -41,8 +41,8 @@ function Separator() {
         fontWeight: 700,
         color: 'var(--color-primary)',
         textShadow: '0 0 12px var(--glow-primary)',
-        alignSelf: 'flex-start',
-        marginTop: '0.6rem',
+        alignSelf: 'center',
+        marginBottom: '1.5rem',
         lineHeight: 1,
       }}
     >

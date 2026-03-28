@@ -90,7 +90,7 @@ export const inviteConfig = {
     {
       icon: 'check',
       title: 'Confirmação',
-      text: 'Confirme sua presença até 20 de abril pelo formulário abaixo.',
+      text: 'Confirme sua presença até 20 de abril pelo formulário de RSVP neste convite.',
     },
     {
       icon: 'camera',

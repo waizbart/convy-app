@@ -67,10 +67,10 @@ export default function App() {
         <Hero />
         <EventDetails />
         <Countdown />
+        <RSVP />
         <DressCode />
         <GuestManual />
         <GiftList />
-        <RSVP />
         <Footer />
       </main>
     </>

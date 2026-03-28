@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import { inviteConfig } from '../../config/invite.config';
 
 export function PixBox() {
@@ -97,9 +98,15 @@ export function PixBox() {
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           minWidth: 160,
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {copied ? '✔ Copiado!' : 'Copiar chave'}
+        {copied
+          ? <><Check size={13} strokeWidth={2} style={{ marginRight: '0.35rem' }} />Copiado!</>
+          : <><Copy size={13} strokeWidth={1.5} style={{ marginRight: '0.35rem' }} />Copiar chave</>
+        }
       </button>
     </div>
   );

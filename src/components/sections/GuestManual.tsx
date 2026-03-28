@@ -14,7 +14,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 export function GuestManual() {
   return (
-    <SectionWrapper label="Informações" title="Manual do Convidado" id="manual">
+    <SectionWrapper label="Para o grande dia" title="Manual do Convidado" id="manual">
       <motion.div
         variants={itemVariants}
         style={{
