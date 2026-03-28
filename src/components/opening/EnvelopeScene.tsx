@@ -32,7 +32,7 @@ export function EnvelopeScene({ onOpen, onInteract, visible, guestName }: Envelo
     setTimeout(() => onOpen(), 1800);
   }
 
-  const displayName = guestName.trim() || `${inviteConfig.person.firstName} ${inviteConfig.person.lastName}`;
+  const displayName = guestName.trim() || 'Você';
 
   return (
     <AnimatePresence>

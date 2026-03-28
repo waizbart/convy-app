@@ -55,6 +55,21 @@ export const inviteConfig = {
     keyRaw: '54274831876',
   },
 
+  // ── FOTOS
+  // Coloque as fotos em /public/images/ e atualize os caminhos abaixo
+  photos: {
+    // Foto de fundo do Hero — funciona melhor em retrato (vertical) ou landscape bem centralizado
+    hero: '/images/photo-hero.jpg',
+    // Galeria — adicione/remova conforme a quantidade de fotos disponíveis
+    gallery: [
+      '/images/gallery-1.jpg',
+      '/images/gallery-2.jpg',
+      '/images/gallery-3.jpg',
+      '/images/gallery-4.jpg',
+      '/images/gallery-5.jpg',
+    ],
+  },
+
   // ── DRESS CODE
   dressCode: {
     title: 'Esporte Fino',

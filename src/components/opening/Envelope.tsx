@@ -43,30 +43,6 @@ export function Envelope({ isOpening }: EnvelopeProps) {
             borderBottom: `${ENVELOPE_H * 0.55}px solid rgba(255,63,164,0.08)`,
           }}
         />
-        {/* Left fold line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: 0,
-            height: 0,
-            borderTop: `${ENVELOPE_H}px solid rgba(255,63,164,0.06)`,
-            borderRight: `${ENVELOPE_W / 2}px solid transparent`,
-          }}
-        />
-        {/* Right fold line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: 0,
-            height: 0,
-            borderTop: `${ENVELOPE_H}px solid rgba(255,63,164,0.06)`,
-            borderLeft: `${ENVELOPE_W / 2}px solid transparent`,
-          }}
-        />
       </div>
 
       {/* ── Flap (top triangle) ── */}

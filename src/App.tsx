@@ -14,6 +14,7 @@ import { DressCode } from './components/sections/DressCode';
 import { GuestManual } from './components/sections/GuestManual';
 import { GiftList } from './components/sections/GiftList';
 import { RSVP } from './components/sections/RSVP';
+import { Gallery } from './components/sections/Gallery';
 import { Footer } from './components/sections/Footer';
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
         aria-hidden={!envelopeOpened}
       >
         <Hero />
+        <Gallery />
         <EventDetails />
         <Countdown />
         <RSVP />
