@@ -2,27 +2,14 @@ import { motion } from 'framer-motion';
 import { inviteConfig } from '../../config/invite.config';
 import { SectionWrapper, itemVariants } from '../layout/SectionWrapper';
 import { TabSwitcher } from '../ui/TabSwitcher';
+import { Carousel } from '../ui/Carousel';
 
 function WomenPanel() {
   const { dressCode } = inviteConfig;
   return (
     <div style={{ textAlign: 'center', padding: '1rem 0' }}>
-      <img
-        src="/images/dress-women.jpg"
-        alt="Sugestão de look feminino"
-        loading="lazy"
-        style={{
-          width: '100%',
-          maxWidth: 260,
-          height: 320,
-          objectFit: 'cover',
-          borderRadius: 12,
-          border: '1px solid rgba(255,63,164,0.25)',
-          margin: '0 auto 1.25rem',
-          display: 'block',
-          boxShadow: '0 8px 32px rgba(255,63,164,0.15)',
-        }}
-      />
+      <Carousel images={dressCode.womenImages} alt="Look feminino" />
+
       <p
         style={{
           fontFamily: 'var(--font-serif)',
@@ -30,6 +17,7 @@ function WomenPanel() {
           fontSize: '1rem',
           color: 'var(--color-text)',
           marginBottom: '0.75rem',
+          marginTop: '1.25rem',
         }}
       >
         {dressCode.womenNote}
@@ -57,22 +45,8 @@ function MenPanel() {
   const { dressCode } = inviteConfig;
   return (
     <div style={{ textAlign: 'center', padding: '1rem 0' }}>
-      <img
-        src="/images/dress-men.jpg"
-        alt="Sugestão de look masculino"
-        loading="lazy"
-        style={{
-          width: '100%',
-          maxWidth: 260,
-          height: 320,
-          objectFit: 'cover',
-          borderRadius: 12,
-          border: '1px solid rgba(255,63,164,0.25)',
-          margin: '0 auto 1.25rem',
-          display: 'block',
-          boxShadow: '0 8px 32px rgba(255,63,164,0.15)',
-        }}
-      />
+      <Carousel images={dressCode.menImages} alt="Look masculino" />
+
       <p
         style={{
           fontFamily: 'var(--font-serif)',
@@ -80,6 +54,7 @@ function MenPanel() {
           fontSize: '1rem',
           color: 'var(--color-text)',
           marginBottom: '0.75rem',
+          marginTop: '1.25rem',
         }}
       >
         {dressCode.menNote}

@@ -63,6 +63,17 @@ export const inviteConfig = {
     menNote: 'Calça social, camisa ou blazer.',
     menTip: 'Tênis é bem-vindo, desde que o visual seja elegante.',
     forbiddenColor: 'rosa',
+    // Imagens em /public/images/ — adicione/remova paths conforme necessário
+    womenImages: [
+      '/images/dress-women-1.png',
+      '/images/dress-women-2.png',
+      '/images/dress-women-3.png',
+    ],
+    menImages: [
+      '/images/dress-men-1.png',
+      '/images/dress-men-2.png',
+      '/images/dress-men-3.png',
+    ],
   },
 
   // ── MANUAL DO CONVIDADO
