@@ -138,7 +138,7 @@ export function Envelope({ isOpening }: EnvelopeProps) {
                 height: 0,
                 borderLeft: `${ENVELOPE_W / 2}px solid transparent`,
                 borderRight: `${ENVELOPE_W / 2}px solid transparent`,
-                borderTop: `${ENVELOPE_H * 0.5}px solid #0f0920`,
+                borderBottom: `${ENVELOPE_H * 0.5}px solid #0f0920`,
               }}
             />
           </div>
