@@ -16,12 +16,10 @@ export const inviteConfig = {
 
   // ── EVENTO
   event: {
-    date: new Date('2026-05-09T18:30:00'),
-    dateLabel: '9 de maio de 2026',
-    dayOfWeek: 'Sábado',
-    time: '18h30',
+    date: new Date('2026-05-09T19:00:00'),
+    dateLabel: '19h00',
     venue: 'Império Eventos',
-    doorsOpenTime: '18h30',
+    doorsOpenTime: '19h00',
   },
 
   // ── FRASES
