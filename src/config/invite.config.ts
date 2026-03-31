@@ -16,12 +16,12 @@ export const inviteConfig = {
 
   // ── EVENTO
   event: {
-    date: new Date('2026-05-09T18:30:00'),
+    date: new Date('2026-05-09T19:00:00'),
     dateLabel: '9 de maio de 2026',
     dayOfWeek: 'Sábado',
-    time: '18h30',
+    time: '19h00',
     venue: 'Império Eventos',
-    doorsOpenTime: '18h30',
+    doorsOpenTime: '19h00',
   },
 
   // ── FRASES
@@ -70,7 +70,7 @@ export const inviteConfig = {
     {
       icon: '⏰',
       title: 'Pontualidade',
-      text: 'O salão abre a partir das 18h30. Seja pontual e aproveite cada momento!',
+      text: 'O salão abre a partir das 19h00. Seja pontual e aproveite cada momento!',
     },
     {
       icon: '✅',
