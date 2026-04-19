@@ -44,8 +44,8 @@ export const inviteConfig = {
 
   // ── RSVP
   rsvp: {
-    deadline: '20 de abril de 2026',
-    deadlineDate: new Date('2026-04-20'),
+    deadline: '2 de maio de 2026',
+    deadlineDate: new Date('2026-05-02'),
   },
 
   // ── PIX
@@ -114,7 +114,7 @@ export const inviteConfig = {
     {
       icon: 'check',
       title: 'Confirmação',
-      text: 'Confirme sua presença até 20 de abril pelo formulário de RSVP neste convite.',
+      text: 'Confirme sua presença até 2 de maio pelo formulário de RSVP neste convite.',
     },
     {
       icon: 'camera',
